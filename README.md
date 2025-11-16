@@ -147,3 +147,25 @@ cd ecommerce-laravel
 
 ### 3.6 Démarrer le serveur
     php artisan serve
+
+
+
+
+
+
+// Creation des tables
+
+## Structure de la base de données
+
+Le projet comprend les tables suivantes :
+
+- **utilisateurs** : Informations des utilisateurs
+- **clients** : Profils clients (hérite de utilisateur)
+- **administrateurs** : Profils administrateurs
+- **categories** : Catégories de produits
+- **produits** : Catalogue de produits
+- **paniers** : Paniers d'achat
+- **ligne_paniers** : Détails des produits dans les paniers
+- **commandes** : Historique des commandes
+- **ligne_commandes** : Détails des produits dans les commandes
+- **paiements** : Informations de paiement
