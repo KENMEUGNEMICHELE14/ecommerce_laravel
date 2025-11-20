@@ -149,6 +149,10 @@ cd ecommerce-laravel
 
 ### 3.6 Démarrer le serveur
     php artisan serve
+                --- Pour s'inscrire :http://127.0.0.1:8000/register
+                --- Pour se connecter :http://127.0.0.1:8000/login
+                    Et les deux renvoie au dashboard de l'utilisateur
+    
 
 
 
@@ -160,7 +164,7 @@ cd ecommerce-laravel
 ## Structure de la base de données
 
 Le projet comprend les tables suivantes :
-
+- Les tables prédéfinies par Laravel
 - **utilisateurs** : Informations des utilisateurs
 - **clients** : Profils clients (hérite de utilisateur)
 - **administrateurs** : Profils administrateurs
