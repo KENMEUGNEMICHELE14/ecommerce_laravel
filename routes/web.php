@@ -41,6 +41,7 @@ Route::get('login', [AuthController::class, 'login'])
 
 Route::post('authentificate', [AuthController::class, 'authentificate'])
     ->name('authentificate');
+    
 
 Route::post('logout', [AuthController::class, 'logout'])
     ->name('logout');
