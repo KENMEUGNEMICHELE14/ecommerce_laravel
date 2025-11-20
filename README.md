@@ -95,6 +95,8 @@ Pour compiler le projet laravel ci present :
 - **Télécharger** : https://getcomposer.org/Composer-Setup.exe
 - **Version** :version 2.8.12
 - **Installer** en cochant "Add to PATH"
+- **Installer** en cochant "Add to PATH"
+
 
 
 ## Verification
