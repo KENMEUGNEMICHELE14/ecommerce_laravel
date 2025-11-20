@@ -81,7 +81,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 Pour compiler le projet laravel ci present :
 
 
-###  ATTENTION : Installez CES versions exactes et creer dabors chacun vos branches
+###  ATTENTION : Installez CES versions exactes /+ et creer dabors chacun vos branches
 
 ## 1. INSTALLATION DES LOGICIELS (VERSIONS EXACTES)
 
@@ -90,6 +90,7 @@ Pour compiler le projet laravel ci present :
 - **Version** : XAMPP 7.4.33
 - **PHP** : PHP 7.4.6 (cli) (built: May 12 2020 11:38:54)
 - **Installer** en suivant les étapes par défaut
+- installer aussi l'extension blade (elle va permettre de transformer nos page html en blade.php)
 
 ### 1.2 Composer
 - **Télécharger** : https://getcomposer.org/Composer-Setup.exe
