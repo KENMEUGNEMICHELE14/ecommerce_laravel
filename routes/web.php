@@ -17,7 +17,7 @@ use App\Http\Controllers\DashboardController;
 // Elle n'a qu'une seule de méthode
 Route::get('dashboard',DashboardController:: class)
     ->name('dashboard')
-    ->middleware('auth');
+    ->middleware('auth');  
 
 
 
@@ -45,7 +45,6 @@ Route::post('authentificate', [AuthController::class, 'authentificate'])
 
 Route::post('logout', [AuthController::class, 'logout'])
     ->name('logout');
-
 
 
 Route::get('register', [AuthController::class, 'showRegisterForm'])
