@@ -1,3 +1,8 @@
+
+
+NOMS DES MEMBRES DU GROUPE: 1-DANWE KAGOU MANUELLA 2- CHARLES HENRY ATANGA 3- FONING KOTSAP JAURES HERVE 4- FRANCOIS CHARLES ATANGA 5-KENMEUGNE TCHOUNGA MICHELE ESTELLE 6-KOUAM KAMDEM ULRICH 7- MANFOUO KOUAMASSONG BRAUN 8-MEBENGA OWONA MICHEL STEPHANE 9- MOFFO PICHELE STEVENIE 10- PAFE MEKONTSO DILANE 11- PASSO NGUENA DENNY BRAYAN
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
@@ -166,7 +171,7 @@ cd ecommerce-laravel
 
 Le projet comprend les tables suivantes :
 - Les tables prédéfinies par Laravel
-- **utilisateurs** : Informations des utilisateurs
+- **utilisateurs** : Informations des utilisateurs // qui a finalement été remplacé par user
 - **clients** : Profils clients (hérite de utilisateur)
 - **administrateurs** : Profils administrateurs
 - **categories** : Catégories de produits
