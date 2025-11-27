@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -12,32 +13,27 @@ class AuthController extends Controller
         return view("auth.login");
     }
 
-    public function authentificate(Request $request){
-        $request->validate([
-            'email'=> 'required|email',
-            'password'=>'required'
+    public function authentificate(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required','email'],
+            'password' => ['required'],
         ]);
 
-        $credentials = $request->only('email','password');
-        $remember = $request->filled('remember');
-
-        if (auth()->attempt($credentials, $remember)) {
-            $user = auth()->user();
-
-            // admin -> dashboard, sinon -> page d'accueil
-            if ($user instanceof User && $user->isAdmin()) {
-                return redirect()->route('dashboard');
-            }
-
-            return redirect()->route('home');
+        if (auth()->attempt($credentials, $request->boolean('remember'))) {
+            $request->session()->regenerate();
+            // rediriger tous vers la page d'accueil
+            return redirect()->intended(route('home'));
         }
 
-        return redirect()->back()->withErrors(['email' => 'Les identifiants ne correspondent pas'])->withInput();
+        return back()->withErrors(['email' => 'Identifiants incorrects'])->withInput();
     }
 
     // Pour se deconnecter
-    public function logout(){
+    public function logout(Request $request){
         auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('login');
     }
 
@@ -60,14 +56,14 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'telephone' => $request->telephone,
-            'password' => bcrypt($request->password),
+            'password' => Hash::make($request->password),
             'role' => 'user',
         ]);
 
         auth()->login($user);
 
         // même logique de redirection que pour la connexion
-        if ($user instanceof User && $user->isAdmin()) {
+        if ($user instanceof User && method_exists($user, 'isAdmin') && $user->isAdmin()) {
             return redirect()->route('dashboard')->with('success','Bienvenue Admin !');
         }
 
