@@ -62,7 +62,7 @@ public function register(Request $request)
     // Connecter automatiquement
     auth()->login($user);
 
-    return redirect()->route('dashboard')->with('success', 'Inscription réussie !');
+    return redirect()->route('login')->with('success', 'Inscription réussie !');
 }
 }
 

@@ -14,23 +14,12 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-// Elle n'a qu'une seule de méthode
-Route::get('dashboard',DashboardController:: class)
+Route::get('/', [AuthController::class, 'login'])
+    ->name('home');
+
+Route::get('dashboard', DashboardController::class)
     ->name('dashboard')
     ->middleware('auth');
-
-
-
-
-
-
-
-
-/*/::::::::::::::::::::::::::::::::::::::Route::get('/', function () {
-    return view('welcome');
-});*/
-
-
 
 
 
@@ -52,8 +41,7 @@ Route::get('register', [AuthController::class, 'showRegisterForm'])
     ->name('register');
 Route::post('register', [AuthController::class, 'register'])
     ->name('register.post');
-    
 
 
 
-    
+
