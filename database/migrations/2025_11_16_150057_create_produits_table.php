@@ -17,10 +17,10 @@ class CreateProduitsTable extends Migration
             $table->id();
             $table->string('nom', 255);
             $table->text('description')->nullable();
-            $table->decimal('prix', 10, 2);
-            $table->integer('stock');
-            $table->foreignId('categorie_id')->nullable()->constrained('categories')->onDelete('set null');
-            $table->json('images')->nullable();
+            $table->decimal('prix', 10, 2)->default(0);
+            $table->unsignedInteger('stock')->default(0);
+            $table->foreignId('categorie_id')->nullable()->constrained('categories')->nullOnDelete();
+            $table->json('images')->nullable(); // si votre MySQL ne supporte pas JSON, utilisez ->text()->nullable()
             $table->timestamps();
         });
     }
