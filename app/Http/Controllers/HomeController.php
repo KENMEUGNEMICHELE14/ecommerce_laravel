@@ -3,16 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produit;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // produits en vedette / derniers produits — adapte la query selon tes besoins
-        $featured = Produit::where('stock', '>', 0)->orderBy('created_at', 'desc')->take(6)->get();
-        $latest   = Produit::orderBy('created_at', 'desc')->take(8)->get();
+        // Récupère tous les produits publiés paginés
+        $produits = Produit::where('published', true)
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
 
-        return view('home', compact('featured', 'latest'));
+        // Meilleures ventes (6 produits publiés)
+        $featured = Produit::where('published', true)
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get()
+            ->map(function($p) {
+                $p->primary_image = !empty($p->images) && is_array($p->images) && count($p->images) > 0 
+                    ? Storage::url($p->images[0]) 
+                    : asset('images/placeholder.png');
+                return $p;
+            });
+
+        // Nouveautés (8 produits publiés)
+        $latest = Produit::where('published', true)
+            ->orderBy('created_at', 'desc')
+            ->limit(8)
+            ->get()
+            ->map(function($p) {
+                $p->primary_image = !empty($p->images) && is_array($p->images) && count($p->images) > 0 
+                    ? Storage::url($p->images[0]) 
+                    : asset('images/placeholder.png');
+                return $p;
+            });
+
+        return view('home', compact('produits', 'featured', 'latest'));
     }
 }
