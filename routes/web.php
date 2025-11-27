@@ -4,54 +4,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-// rendre la page racine la page de login
-Route::get('/', [AuthController::class, 'login'])
-    ->name('home');
-
-// Elle n'a qu'une seule de méthode
-Route::get('dashboard', DashboardController:: class)
-    ->name('dashboard')
-    ->middleware('auth');  
-
-
-
-
-
-
-
-
-/*/::::::::::::::::::::::::::::::::::::::Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
-});*/
+})->name('home');
 
+Route::get('dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'admin'])
+    ->name('dashboard');
 
-
-
-
-
-Route::get('login', [AuthController::class, 'login'])
-    ->name('login');
-
-Route::post('authentificate', [AuthController::class, 'authentificate'])
-    ->name('authentificate');
-
-Route::post('logout', [AuthController::class, 'logout'])
-    ->name('logout');
-
-Route::get('register', [AuthController::class, 'showRegisterForm'])
-    ->name('register');
-Route::post('register', [AuthController::class, 'register'])
-    ->name('register.post');
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('authentificate', [AuthController::class, 'authentificate'])->name('authentificate');
+Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [AuthController::class, 'register'])->name('register.post');
 
 
 

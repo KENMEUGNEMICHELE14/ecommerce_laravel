@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -21,10 +22,16 @@ class AuthController extends Controller
         $remember = $request->filled('remember');
 
         if (auth()->attempt($credentials, $remember)) {
-            return redirect()->route('dashboard');
+            $user = auth()->user();
+
+            // admin -> dashboard, sinon -> page d'accueil
+            if ($user instanceof User && $user->isAdmin()) {
+                return redirect()->route('dashboard');
+            }
+
+            return redirect()->route('home');
         }
 
-        // ajouter return et message d'erreur au format attendu
         return redirect()->back()->withErrors(['email' => 'Les identifiants ne correspondent pas'])->withInput();
     }
 
@@ -45,22 +52,26 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
-            'telephone' => 'required|string|max:20',
+            'telephone' => 'nullable|string|max:20',
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
-        // Créer l'utilisateur
-        $user = \App\Models\User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
             'telephone' => $request->telephone,
+            'password' => bcrypt($request->password),
+            'role' => 'user',
         ]);
 
-        // Connecter automatiquement
         auth()->login($user);
 
-        return redirect()->route('dashboard')->with('success', 'Inscription réussie !');
+        // même logique de redirection que pour la connexion
+        if ($user instanceof User && $user->isAdmin()) {
+            return redirect()->route('dashboard')->with('success','Bienvenue Admin !');
+        }
+
+        return redirect()->route('home')->with('success','Bienvenue !');
     }
 }
 
